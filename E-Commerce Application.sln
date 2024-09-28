@@ -13,19 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{CA6A907C-395D-4A05-B2A7-49E5940F0430}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E_Commerce.Api", "E_Commerce.Api\E_Commerce.Api.csproj", "{5A9917E4-3EE7-4298-80E6-9A1C32257B6B}"
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5A9917E4-3EE7-4298-80E6-9A1C32257B6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A9917E4-3EE7-4298-80E6-9A1C32257B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A9917E4-3EE7-4298-80E6-9A1C32257B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A9917E4-3EE7-4298-80E6-9A1C32257B6B}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
@@ -34,7 +22,6 @@ Global
 		{730F411D-CCF4-4DE4-9C16-71ED62F98F85} = {EC48C1B8-BF9D-41AC-AD1F-0A2CC7EF1C9E}
 		{74A2D201-42E9-4EFA-8C84-9BA6D1448C89} = {EC48C1B8-BF9D-41AC-AD1F-0A2CC7EF1C9E}
 		{CA6A907C-395D-4A05-B2A7-49E5940F0430} = {74A2D201-42E9-4EFA-8C84-9BA6D1448C89}
-		{5A9917E4-3EE7-4298-80E6-9A1C32257B6B} = {CA6A907C-395D-4A05-B2A7-49E5940F0430}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8BE0A59-2142-4D6C-B941-8C560B9960E8}
