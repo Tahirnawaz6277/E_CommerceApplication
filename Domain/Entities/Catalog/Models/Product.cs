@@ -1,9 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Catalog.Models
+namespace Domain.Entities.Catalog.Models
 {
     public class Product
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public Guid Id { get; set; }
+
         [StringLength(100)]
         public string Name { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Context
+﻿namespace Infrastructure.Persistance.Context
 {
     internal class ApplicationDbContext
     {

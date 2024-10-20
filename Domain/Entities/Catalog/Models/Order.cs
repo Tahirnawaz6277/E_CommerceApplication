@@ -1,9 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Catalog.Models
+namespace Domain.Entities.Catalog.Models
 {
     public class Order
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
         public DateTime OrderDate { get; set; }
