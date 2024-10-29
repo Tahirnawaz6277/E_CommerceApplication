@@ -14,6 +14,9 @@ namespace Domain.Entities.Catalog.Models
 
         [StringLength(255)]
         public string Description { get; set; }
+        public DateTime Created_at { get; set; }
+        public DateTime Updated_at { get; set; }
+        public DateTime Deleted_at { get; set; }
 
         // Relationships
         public ICollection<Product> Products { get; set; }
