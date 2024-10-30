@@ -12,9 +12,9 @@ namespace Domain.Entities.Catalog.Models
         [StringLength(100)]
         public string? Username { get; set; }
 
+        [StringLength(100)]
         public string Email { get; set; }
         public string? PasswordHash { get; set; }
-        public string Role { get; set; } // Can be either "Admin" or "Customer"
         public int Telephone { get; set; }
 
         public DateTime Created_at { get; set; }

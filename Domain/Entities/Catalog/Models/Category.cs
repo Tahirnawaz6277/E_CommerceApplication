@@ -19,7 +19,7 @@ namespace Domain.Entities.Catalog.Models
         public DateTime Deleted_at { get; set; }
 
         // Relationships
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 
 }

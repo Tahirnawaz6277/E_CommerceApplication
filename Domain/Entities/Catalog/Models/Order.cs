@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Entities.Catalog.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities.Catalog.Models
@@ -15,10 +16,10 @@ namespace Domain.Entities.Catalog.Models
 
         [StringLength(255)]
         public string ShippingAddress { get; set; }
-        public string Status { get; set; } // "Pending", "Shipped", "Delivered", etc.
+        public OrderStatus Status { get; set; } // "Pending", "Shipped", "Delivered", etc.
 
         // Relationships
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 
 }
