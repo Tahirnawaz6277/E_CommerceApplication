@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Entities.Catalog.Models
+namespace Domain.Entities.Catalog.Inventory
 {
     public class Category
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entities.Catalog.Models
+namespace Domain.Entities.Catalog.Inventory
 {
     public class Discount
     {

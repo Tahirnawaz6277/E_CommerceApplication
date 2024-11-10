@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Entities.Catalog.Models
+namespace Domain.Entities.Catalog
 {
-    public class User : Identity
+    public class User :IdentityUser
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -18,6 +19,6 @@ namespace Domain.Entities.Catalog.Models
         public int Telephone { get; set; }
 
         public DateTime Created_at { get; set; }
-        public DateTime?  Updated_at { get; set; }
+        public DateTime? Updated_at { get; set; }
     }
 }
