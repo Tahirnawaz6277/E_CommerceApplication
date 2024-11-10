@@ -1,19 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Entities.Common;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities.Catalog.Inventory
 {
-    public class Discount
+    [Table("Discounts", Schema = "inventory")]
+    public class Discount : AuditableEntity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public Guid Id { get; set; }
 
+        [StringLength(100)]
+        public string Name { get; set; }
+
         [StringLength(255)]
-        public string Discription { get; set; }
+        public string? Discription { get; set; }
         public decimal Discount_percent { get; set; }
         public bool Active { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public DateTime Deleted_at { get; set; }
+        public DateTime? Deleted_at { get; set; }
 
         //relations
         public ICollection<Product> products { get; set; } = new List<Product>();

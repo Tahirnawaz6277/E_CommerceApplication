@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Entities.Common;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities.Catalog.Inventory
 {
-    public class Category
+    [Table("Categories", Schema = "inventory")]
+    public class Category : AuditableEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -14,9 +16,7 @@ namespace Domain.Entities.Catalog.Inventory
 
         [StringLength(255)]
         public string Description { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public DateTime Deleted_at { get; set; }
+        public DateTime? Deleted_at { get; set; }
 
         // Relationships
         public ICollection<Product> Products { get; set; } = new List<Product>();

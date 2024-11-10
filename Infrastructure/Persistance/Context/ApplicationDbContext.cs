@@ -29,8 +29,8 @@ namespace Infrastructure.Persistance.Context
 
         public DbSet<Order_Detail> Order_Details { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Payment_Detail> Payment_Details { get; set; }
-        public DbSet<User_payment> User_Payments { get; set; }
+        public DbSet<PaymentDetail> Payment_Details { get; set; }
+        public DbSet<UserPayment> User_Payments { get; set; }
 
 
     }
