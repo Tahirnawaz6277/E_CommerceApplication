@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Entities.Catalog.Models
+namespace Domain.Entities.Catalog.Inventory
 {
     public class Product
     {
@@ -18,7 +18,7 @@ namespace Domain.Entities.Catalog.Models
         public string? ImageUrl { get; set; }
         public Guid CatagoryId { get; set; }
 
-  
+
         public Guid DiscountId { get; set; }
         public Guid InventoryId { get; set; }
         public DateTime Created_at { get; set; }

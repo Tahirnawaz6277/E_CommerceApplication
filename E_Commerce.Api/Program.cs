@@ -1,3 +1,6 @@
+using Infrastructure.Persistance.Context;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ---> IdentityUser Setup
+
+builder.Services.AddIdentity<IdentityUser,IdentityRole>()
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+
+builder.Services.AddDbContext<ApplicationDbContext>(option =>
+{
+    
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

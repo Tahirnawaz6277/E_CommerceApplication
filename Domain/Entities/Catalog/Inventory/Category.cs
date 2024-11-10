@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Entities.Catalog.Models
+namespace Domain.Entities.Catalog.Inventory
 {
     public class Category
     {
@@ -19,7 +19,7 @@ namespace Domain.Entities.Catalog.Models
         public DateTime Deleted_at { get; set; }
 
         // Relationships
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 
 }
