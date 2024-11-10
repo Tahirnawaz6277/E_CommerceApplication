@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Entities.Catalog.Payment;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,10 +16,12 @@ namespace Domain.Entities.Catalog
 
         [StringLength(100)]
         public string Email { get; set; }
-        public string? PasswordHash { get; set; }
+        public string Password { get; set; }
         public int Telephone { get; set; }
 
-        public DateTime Created_at { get; set; }
-        public DateTime? Updated_at { get; set; }
+        // Relationships
+        public virtual ICollection<UserPayment> User_Payments { get; set; } = new List<UserPayment>();
+        public virtual ICollection<User_address> User_Addresses { get; set; } = new List<User_address>();
+
     }
 }

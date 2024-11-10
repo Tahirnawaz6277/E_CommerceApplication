@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Entities.Common;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities.Catalog.Inventory
 {
-    public class Product
+    [Table("Products",Schema ="inventory")]
+    public class Product : AuditableEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -17,16 +19,11 @@ namespace Domain.Entities.Catalog.Inventory
         public decimal Price { get; set; }
         public string? ImageUrl { get; set; }
         public Guid CatagoryId { get; set; }
-
-
         public Guid DiscountId { get; set; }
         public Guid InventoryId { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public DateTime Deleted_at { get; set; }
+        public DateTime? Deleted_at { get; set; }
 
         // Relationships
-        //public ICollection<OrderItem> OrderItems { get; set; }
 
         [ForeignKey("CatagoryId")]
         public Category category { get; set; }
@@ -36,6 +33,8 @@ namespace Domain.Entities.Catalog.Inventory
 
         [ForeignKey("InventoryId")]
         public Discount discount { get; set; }
+        //public OrderItem OrderItem { get; set; } = new OrderItem();
+
     }
 
 }
