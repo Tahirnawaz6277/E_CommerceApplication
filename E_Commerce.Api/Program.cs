@@ -1,5 +1,6 @@
 using Infrastructure.Persistance.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,14 +13,14 @@ builder.Services.AddSwaggerGen();
 
 // ---> IdentityUser Setup
 
-builder.Services.AddIdentity<IdentityUser,IdentityRole>()
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
-    
+    option.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceConnection"));
 });
 var app = builder.Build();
 
