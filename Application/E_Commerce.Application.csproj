@@ -11,6 +11,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Folder Include="Services\AuthService\" />
 		<Folder Include="Services\ProductService\Dtos\" />
 	</ItemGroup>
 
