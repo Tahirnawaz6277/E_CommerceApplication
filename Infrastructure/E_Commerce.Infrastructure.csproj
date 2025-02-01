@@ -12,8 +12,8 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<ProjectReference Include="..\Application\E-Commerce.Application.csproj" />
-		<ProjectReference Include="..\Domain\E-Commerce.Domain.csproj" />
+		<ProjectReference Include="..\Application\E_Commerce.Application.csproj" />
+		<ProjectReference Include="..\Domain\E_Commerce.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
