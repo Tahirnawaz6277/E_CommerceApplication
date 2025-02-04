@@ -4,7 +4,7 @@ namespace Domain.Entities.Catalog.Payment
 {
     public class UserPayment : AuditableEntity
     {
-        public int UserPaymentId { get; set; }
+        public Guid UserPaymentId { get; set; }
         public string UserId { get; set; }
         public string Payment_type { get; set; }
         public string? Provider { get; set; }

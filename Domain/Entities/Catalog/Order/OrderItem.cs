@@ -10,9 +10,9 @@ namespace Domain.Entities.Catalog.Order
             OrderDetail = new OrderDetail();
             Product = new Product();
         }
-        public int OrderItemId { get; set; }
-        public int OrderId { get; set; }
-        public int ProductId { get; set; }
+        public Guid OrderItemId { get; set; }
+        public Guid OrderId { get; set; }
+        public Guid ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal? UnitPrice { get; set; }
 

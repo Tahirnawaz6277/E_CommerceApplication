@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Persistance.Context
 {
-    public class ApplicationDbContext : IdentityDbContext<User>,IDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>,IDbContext
     {
         private readonly IConfiguration _configuration;
 
@@ -18,7 +18,7 @@ namespace Infrastructure.Persistance.Context
             _configuration = configuration;
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
 
         public DbSet<User_address> UserAddresses { get; set; }
 

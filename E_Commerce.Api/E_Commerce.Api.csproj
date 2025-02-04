@@ -48,8 +48,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Application\E_Commerce.Application.csproj" />
-		<ProjectReference Include="..\Infrastructure\E_Commerce.Infrastructure.csproj" />
+	  <ProjectReference Include="..\Application\E_Commerce.Application.csproj" />
+	  <ProjectReference Include="..\Infrastructure\E_Commerce.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

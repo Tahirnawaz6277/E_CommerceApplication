@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Mapping
+namespace E_Commerce.Infrastructure.Configurations.Mappings
 {
     public class UserPaymentMapping : IEntityTypeConfiguration<UserPayment>
     {

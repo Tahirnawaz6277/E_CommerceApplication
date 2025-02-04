@@ -12,7 +12,6 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<ProjectReference Include="..\Application\E_Commerce.Application.csproj" />
 		<ProjectReference Include="..\Domain\E_Commerce.Domain.csproj" />
 	</ItemGroup>
 
@@ -29,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Mapper\" />
+	  <Folder Include="Persistance\Services\" />
 	</ItemGroup>
 
 </Project>

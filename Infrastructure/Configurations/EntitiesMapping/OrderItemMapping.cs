@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Mapping
+namespace E_Commerce.Infrastructure.Configurations.Mappings
 {
     public class OrderItemMapping : IEntityTypeConfiguration<OrderItem>
     {
@@ -16,7 +16,7 @@ namespace Infrastructure.Mapping
             builder.Property(o => o.ProductId).IsRequired();
             builder.Property(o => o.Quantity).IsRequired();
             builder.Property(o => o.UnitPrice).IsRequired(false);
-         
+
             // configure relationships
 
             builder.HasOne(o => o.Product)

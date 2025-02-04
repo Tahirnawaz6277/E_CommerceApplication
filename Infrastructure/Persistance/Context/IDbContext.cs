@@ -9,7 +9,7 @@ namespace Infrastructure.Persistance.Context
     public interface IDbContext
     {
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<User_address> UserAddresses { get; set; }
 
         public DbSet<Category> Categories { get; set; }
