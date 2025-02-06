@@ -23,4 +23,8 @@
 	  <ProjectReference Include="..\Infrastructure\E_Commerce.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="ApiModel\" />
+	</ItemGroup>
+
 </Project>
