@@ -24,8 +24,8 @@ namespace Infrastructure.Persistance.Context
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<PaymentDetail> Payment_Details { get; set; }
         public DbSet<UserPayment> User_Payments { get; set; }
-        //Task<int> SaveChangesAsnyc(CancellationToken cancellationToken = default);
-        //DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        DbSet<TEntity> Set<TEntity>() where TEntity : class;
         //DatabaseFacade GetDatabase();
 
 

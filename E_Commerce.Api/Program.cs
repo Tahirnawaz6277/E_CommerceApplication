@@ -1,11 +1,16 @@
+using Application.Services.ProductService;
 using Domain.Entities.Catalog;
 using E_Commerce.Application.Interfaces.IAuthService;
 using E_Commerce.Application.Services.AuthService;
 using E_Commerce.Domain.Interfaces.AuthRepository;
 using E_Commerce.Infrastructure.Persistance.Repository.AuthRepositroy;
 using Infrastructure.Persistance.Context;
+using Infrastructure.Persistance.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +21,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IUserRepo, UserRepo>();
+var connectionString = builder.Configuration.GetConnectionString("ECommerceConnection");
+Console.WriteLine($"Connection string: {connectionString}"); // Debug purpose only
+
+builder.Services.AddDbContext<ApplicationDbContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceConnection"));
+});
 
 // ---> IdentityUser Setup
 
@@ -38,15 +48,29 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(1500);
 });
 
+builder.Services.AddScoped<IDbContext, ApplicationDbContext>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddTransient<ITokenService,TokenService>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(option =>
+// SETUP Jwt 
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceConnection"));
+    option.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
 });
 var app = builder.Build();
-
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

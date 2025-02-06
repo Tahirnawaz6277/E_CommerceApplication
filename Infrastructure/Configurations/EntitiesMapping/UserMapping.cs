@@ -13,6 +13,10 @@ namespace E_Commerce.Infrastructure.Configurations.Mappings
 
             builder.Property(x => x.FullName).IsRequired().HasMaxLength(100);
 
+            builder.Property(x => x.Role).IsRequired().HasMaxLength(50);
+
+            builder.Property(x => x.CreatedOn);
+
             builder.HasMany(x => x.User_Payments)
               .WithOne()
               .HasForeignKey(up => up.UserId)

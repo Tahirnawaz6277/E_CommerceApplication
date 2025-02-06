@@ -1,7 +1,8 @@
-﻿using E_Commerce.Application.Interfaces.IAuthService;
-using E_Commerce.Domain.Entities.Dtos;
+﻿using E_Commerce.Application.DTOS.AuthDto;
+using E_Commerce.Application.Interfaces.IAuthService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace E_Commerce.Api.Controllers.AuthController
 {
@@ -18,18 +19,38 @@ namespace E_Commerce.Api.Controllers.AuthController
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto userData)
+        public async Task<IActionResult> Register([FromBody] RegistorRequest userData)
         {
-            try
+            
+            if (userData is null)
             {
-                var user = await _userService.Register(userData);
-                return Ok(new { UserId = user.Id, Email = user.Email, Role = userData.Role });
+                return BadRequest("userData cannot be null");
+            }
+            var user = await _userService.Register(userData);
 
-            }
-            catch (Exception ex)
+            return user.IsSuccess
+                ? Ok(user)
+                : BadRequest(user);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        {
+
+            var key = new byte[32]; // 256-bit key
+            RandomNumberGenerator.Fill(key);
+            var base64Key = Convert.ToBase64String(key); // Use this as your JWT key
+
+            Console.WriteLine(base64Key);
+            if (loginRequest is null)
             {
-                throw new ApplicationException(ex.Message);
+                return BadRequest("Login request cannot be null");
             }
+            var user = await _userService.Login(loginRequest);
+
+            return user.IsSuccess
+                ? Ok(user)
+                : BadRequest(user);
         }
     }
 }

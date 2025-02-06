@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace E_Commerce.Domain.Entities.Dtos
+namespace E_Commerce.Application.DTOS.AuthDto
 {
-    public class RegisterRequestDto
+    public class RegistorRequest
     {
         [Required(ErrorMessage = "Full Name is required.")]
         public string FullName { get; set; }
@@ -10,7 +10,7 @@ namespace E_Commerce.Domain.Entities.Dtos
         [Required(ErrorMessage = "Email is required.")]
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
-  
+
         [Required(ErrorMessage = "PhoneNumber is required.")]
         [RegularExpression(@"^\d{8,15}$", ErrorMessage = "Enter Phone Number with 8 to 15 digits.")]
         public string MobileNumber { get; set; }

@@ -7,11 +7,7 @@ namespace Domain.Entities.Catalog
     {
         public string FullName { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-
-        //public Guid? CreatedBy { get; set; }
-        //public Guid? LastModifiedBy { get; set; }
-        //public DateTime? LastModifiedOn { get; set; }
-        //public DateTime? DeletedOn { get; set; }
+        public string Role { get; set; }
 
         // Relationships
         public virtual ICollection<UserPayment> User_Payments { get; set; } = new List<UserPayment>();

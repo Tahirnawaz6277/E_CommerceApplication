@@ -64,6 +64,16 @@ namespace Infrastructure.Persistance.Context
                 optionsBuilder.UseSqlServer(conString, options => options.UseNetTopologySuite());
             }
         }
+        public new DbSet<TEntity> Set<TEntity>() where TEntity : class
+        {
+            return base.Set<TEntity>();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return base.SaveChangesAsync(cancellationToken);
+        }
+      
     }
   
 }
