@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Mapping
+namespace E_Commerce.Infrastructure.Configurations.Mappings
 {
     public class UserAddressMapping : IEntityTypeConfiguration<User_address>
     {
@@ -11,12 +11,12 @@ namespace Infrastructure.Mapping
             builder.ToTable("UserAddresses");
 
             builder.HasKey(t => t.User_addressId);
-            builder.Property(t=>t.UserId).IsRequired();
+            builder.Property(t => t.UserId).IsRequired();
             builder.Property(t => t.City).IsRequired().HasMaxLength(100);
-            builder.Property(t=>t.Address).IsRequired().HasMaxLength(255);
-            builder.Property(t=>t.PostalCode).IsRequired(false).HasMaxLength(50);
-            builder.Property(t=>t.Country).IsRequired(false).HasMaxLength(100);
-            builder.Property(t=>t.PhoneNumber).IsRequired().HasMaxLength(50);
+            builder.Property(t => t.Address).IsRequired().HasMaxLength(255);
+            builder.Property(t => t.PostalCode).IsRequired(false).HasMaxLength(50);
+            builder.Property(t => t.Country).IsRequired(false).HasMaxLength(100);
+            builder.Property(t => t.PhoneNumber).IsRequired().HasMaxLength(50);
 
 
             //builder.HasOne(t => t.User)

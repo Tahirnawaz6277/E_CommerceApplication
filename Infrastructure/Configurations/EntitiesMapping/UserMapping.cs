@@ -2,16 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Mapping
+namespace E_Commerce.Infrastructure.Configurations.Mappings
 {
-    public class UserMapping : IEntityTypeConfiguration<User>
+    public class UserMapping : IEntityTypeConfiguration<ApplicationUser>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             builder.ToTable("users");
 
 
             builder.Property(x => x.FullName).IsRequired().HasMaxLength(100);
+
+            builder.Property(x => x.Role).IsRequired().HasMaxLength(50);
+
+            builder.Property(x => x.CreatedOn);
 
             builder.HasMany(x => x.User_Payments)
               .WithOne()

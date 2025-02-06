@@ -9,7 +9,7 @@ namespace Infrastructure.Persistance.Context
     public interface IDbContext
     {
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<User_address> UserAddresses { get; set; }
 
         public DbSet<Category> Categories { get; set; }
@@ -24,8 +24,8 @@ namespace Infrastructure.Persistance.Context
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<PaymentDetail> Payment_Details { get; set; }
         public DbSet<UserPayment> User_Payments { get; set; }
-        //Task<int> SaveChangesAsnyc(CancellationToken cancellationToken = default);
-        //DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        DbSet<TEntity> Set<TEntity>() where TEntity : class;
         //DatabaseFacade GetDatabase();
 
 

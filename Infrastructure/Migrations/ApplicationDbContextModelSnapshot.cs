@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ECommerce.Infrastructure.Migrations
+namespace E_Commerce.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -22,13 +22,89 @@ namespace ECommerce.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Catalog.Inventory.Category", b =>
+            modelBuilder.Entity("Domain.Entities.Catalog.ApplicationUser", b =>
                 {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Catalog.Inventory.Category", b =>
+                {
+                    b.Property<Guid>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -62,11 +138,9 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.Inventory.Discount", b =>
                 {
-                    b.Property<int>("DiscountId")
+                    b.Property<Guid>("DiscountId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiscountId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -106,11 +180,9 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.Inventory.Inventory", b =>
                 {
-                    b.Property<int>("InventoryId")
+                    b.Property<Guid>("InventoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InventoryId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -137,14 +209,12 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.Inventory.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -160,14 +230,14 @@ namespace ECommerce.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("DiscountId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("DiscountId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InventoryId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("InventoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
@@ -196,11 +266,9 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.Order.OrderDetail", b =>
                 {
-                    b.Property<int>("OrderDetailId")
+                    b.Property<Guid>("OrderDetailId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -220,8 +288,8 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PaymentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ShippingAddress")
                         .IsRequired()
@@ -250,11 +318,9 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.Order.OrderItem", b =>
                 {
-                    b.Property<int>("OrderItemId")
+                    b.Property<Guid>("OrderItemId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -271,11 +337,11 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -294,11 +360,9 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.Payment.PaymentDetail", b =>
                 {
-                    b.Property<int>("PaymentDetailId")
+                    b.Property<Guid>("PaymentDetailId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentDetailId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -318,8 +382,8 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Provider")
                         .HasMaxLength(100)
@@ -338,11 +402,9 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.Payment.UserPayment", b =>
                 {
-                    b.Property<int>("UserPaymentId")
+                    b.Property<Guid>("UserPaymentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserPaymentId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Account_No")
                         .HasColumnType("int");
@@ -385,83 +447,11 @@ namespace ECommerce.Infrastructure.Migrations
                     b.ToTable("UserPayments", "payment");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Catalog.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("users", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Catalog.User_address", b =>
                 {
-                    b.Property<int>("User_addressId")
+                    b.Property<Guid>("User_addressId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_addressId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -541,13 +531,13 @@ namespace ECommerce.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e8cb10be-5082-4202-9876-7a01467ce4a6",
+                            Id = "aa1762ea-4420-4bb8-bc02-74c1f6223a14",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "57b12dfc-80c7-47fa-abcb-3695eadd5dc7",
+                            Id = "8a19b888-2873-4716-b79e-79e14b1c16b1",
                             Name = "Customer",
                             NormalizedName = "Customer"
                         });
@@ -670,7 +660,7 @@ namespace ECommerce.Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Catalog.Inventory.Discount", "Discount")
                         .WithMany("Products")
                         .HasForeignKey("DiscountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Catalog.Inventory.Inventory", "Inventory")
@@ -694,7 +684,7 @@ namespace ECommerce.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Catalog.User", "User")
+                    b.HasOne("Domain.Entities.Catalog.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -710,7 +700,7 @@ namespace ECommerce.Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Catalog.Order.OrderDetail", "OrderDetail")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Catalog.Inventory.Product", "Product")
@@ -737,7 +727,7 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.Payment.UserPayment", b =>
                 {
-                    b.HasOne("Domain.Entities.Catalog.User", null)
+                    b.HasOne("Domain.Entities.Catalog.ApplicationUser", null)
                         .WithMany("User_Payments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -746,7 +736,7 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Catalog.User_address", b =>
                 {
-                    b.HasOne("Domain.Entities.Catalog.User", null)
+                    b.HasOne("Domain.Entities.Catalog.ApplicationUser", null)
                         .WithMany("User_Addresses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -764,7 +754,7 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Domain.Entities.Catalog.User", null)
+                    b.HasOne("Domain.Entities.Catalog.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -773,7 +763,7 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Domain.Entities.Catalog.User", null)
+                    b.HasOne("Domain.Entities.Catalog.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -788,7 +778,7 @@ namespace ECommerce.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Catalog.User", null)
+                    b.HasOne("Domain.Entities.Catalog.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -797,11 +787,18 @@ namespace ECommerce.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Domain.Entities.Catalog.User", null)
+                    b.HasOne("Domain.Entities.Catalog.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Catalog.ApplicationUser", b =>
+                {
+                    b.Navigation("User_Addresses");
+
+                    b.Navigation("User_Payments");
                 });
 
             modelBuilder.Entity("Domain.Entities.Catalog.Inventory.Category", b =>
@@ -817,13 +814,6 @@ namespace ECommerce.Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Catalog.Order.OrderDetail", b =>
                 {
                     b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Catalog.User", b =>
-                {
-                    b.Navigation("User_Addresses");
-
-                    b.Navigation("User_Payments");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,7 +4,7 @@ namespace Domain.Entities.Catalog
 {
     public class User_address : AuditableEntity
     {
-        public int User_addressId { get; set; }
+        public Guid User_addressId { get; set; }
 
         public string UserId { get; set; }
 

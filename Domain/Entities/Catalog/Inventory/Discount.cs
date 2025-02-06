@@ -8,7 +8,7 @@ namespace Domain.Entities.Catalog.Inventory
         {
             Products = new List<Product>();
         }
-        public int DiscountId { get; set; }
+        public Guid DiscountId { get; set; }
 
         public string Name { get; set; }
 

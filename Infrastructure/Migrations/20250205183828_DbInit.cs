@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace ECommerce.Infrastructure.Migrations
+namespace E_Commerce.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class DbInit : Migration
@@ -41,8 +40,7 @@ namespace ECommerce.Infrastructure.Migrations
                 schema: "inventory",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -61,8 +59,7 @@ namespace ECommerce.Infrastructure.Migrations
                 schema: "inventory",
                 columns: table => new
                 {
-                    DiscountId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DiscountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Discription = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Discount_percent = table.Column<decimal>(type: "decimal(6,2)", precision: 6, scale: 2, nullable: false),
@@ -83,8 +80,7 @@ namespace ECommerce.Infrastructure.Migrations
                 schema: "inventory",
                 columns: table => new
                 {
-                    InventoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InventoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -103,6 +99,8 @@ namespace ECommerce.Infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -149,15 +147,14 @@ namespace ECommerce.Infrastructure.Migrations
                 schema: "inventory",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    DiscountId = table.Column<int>(type: "int", nullable: false),
-                    InventoryId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DiscountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InventoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -179,8 +176,7 @@ namespace ECommerce.Infrastructure.Migrations
                         column: x => x.DiscountId,
                         principalSchema: "inventory",
                         principalTable: "Discounts",
-                        principalColumn: "DiscountId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DiscountId");
                     table.ForeignKey(
                         name: "FK_Products_Inventories_InventoryId",
                         column: x => x.InventoryId,
@@ -279,8 +275,7 @@ namespace ECommerce.Infrastructure.Migrations
                 name: "UserAddresses",
                 columns: table => new
                 {
-                    User_addressId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    User_addressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -309,8 +304,7 @@ namespace ECommerce.Infrastructure.Migrations
                 schema: "payment",
                 columns: table => new
                 {
-                    UserPaymentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserPaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Payment_type = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Provider = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
@@ -338,10 +332,9 @@ namespace ECommerce.Infrastructure.Migrations
                 schema: "order",
                 columns: table => new
                 {
-                    OrderDetailId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderDetailId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PaymentId = table.Column<int>(type: "int", nullable: false),
+                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ShippingAddress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -367,10 +360,9 @@ namespace ECommerce.Infrastructure.Migrations
                 schema: "order",
                 columns: table => new
                 {
-                    OrderItemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    OrderItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -387,7 +379,8 @@ namespace ECommerce.Infrastructure.Migrations
                         column: x => x.OrderId,
                         principalSchema: "order",
                         principalTable: "OrderDetails",
-                        principalColumn: "OrderDetailId");
+                        principalColumn: "OrderDetailId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderItems_Products_ProductId",
                         column: x => x.ProductId,
@@ -401,9 +394,8 @@ namespace ECommerce.Infrastructure.Migrations
                 schema: "payment",
                 columns: table => new
                 {
-                    PaymentDetailId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    PaymentDetailId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     Provider = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -430,8 +422,8 @@ namespace ECommerce.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "57b12dfc-80c7-47fa-abcb-3695eadd5dc7", null, "Customer", "Customer" },
-                    { "e8cb10be-5082-4202-9876-7a01467ce4a6", null, "Admin", "Admin" }
+                    { "8a19b888-2873-4716-b79e-79e14b1c16b1", null, "Customer", "Customer" },
+                    { "aa1762ea-4420-4bb8-bc02-74c1f6223a14", null, "Admin", "Admin" }
                 });
 
             migrationBuilder.CreateIndex(
