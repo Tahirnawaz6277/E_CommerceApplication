@@ -1,7 +1,7 @@
 ﻿using Domain.Entities.Catalog;
 using E_Commerce.Application.Common.ResultPattern;
 using E_Commerce.Application.DTOS.AuthDto;
-using E_Commerce.Application.Interfaces.IAuthService;
+using E_Commerce.Application.Interfaces.IService.IAuthService;
 using E_Commerce.Domain.Interfaces.AuthRepository;
 using Microsoft.AspNetCore.Identity;
 
@@ -59,11 +59,17 @@ namespace E_Commerce.Application.Services.AuthService
 
         public async Task<Result<RegisterResponse>> Register(RegistorRequest userData)
         {
-            if (!await _roleManager.RoleExistsAsync(userData.Role))
+            userData.Role = userData.Role.ToLower(); // Normalize the role
+            if (userData.Role != "admin" && userData.Role != "customer")
             {
-                return Result<RegisterResponse>.Fail($"Role '{userData.Role}' does not exist.");
+                return Result<RegisterResponse>.Fail("Invalid role specified");
             }
 
+            if (!await _roleManager.RoleExistsAsync(userData.Role.ToLower()))
+            {
+                return Result<RegisterResponse>.Fail($"Role '{userData.Role.ToLower()}' does not exist.");
+            }
+          
             var existingUser = await _userRepo.GetByEmailAsync(userData.Email);
             if (existingUser != null)
             {
@@ -76,7 +82,7 @@ namespace E_Commerce.Application.Services.AuthService
                 UserName = userData.Email,
                 Email = userData.Email,
                 PhoneNumber = userData.MobileNumber,
-                Role = userData.Role
+                Role = userData.Role.ToLower()
             };
 
             var createUser = await _userManager.CreateAsync(user, userData.Password);
@@ -86,11 +92,11 @@ namespace E_Commerce.Application.Services.AuthService
             }
 
             // Assign role
-            var roleUser = await _userManager.AddToRoleAsync(user, userData.Role);
+            var roleUser = await _userManager.AddToRoleAsync(user, userData.Role.ToLower());
             if (!roleUser.Succeeded)
             {
                 await _userManager.DeleteAsync(user);
-                return Result<RegisterResponse>.Fail($"Failed to assign role '{userData.Role}' to user.");
+                return Result<RegisterResponse>.Fail($"Failed to assign role '{userData.Role.ToLower()}' to user.");
             }
 
             var userResponse = new RegisterResponse

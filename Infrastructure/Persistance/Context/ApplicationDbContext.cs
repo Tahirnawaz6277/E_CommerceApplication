@@ -52,8 +52,8 @@ namespace Infrastructure.Persistance.Context
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            var adminRole = new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Admin", NormalizedName = "Admin" };
-            var customerRole = new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "Customer", NormalizedName = "Customer" };
+            var adminRole = new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "admin", NormalizedName = "ADMIN" };
+            var customerRole = new IdentityRole { Id = Guid.NewGuid().ToString(), Name = "customer", NormalizedName = "CUSTOMER" };
             builder.Entity<IdentityRole>().HasData(adminRole, customerRole);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

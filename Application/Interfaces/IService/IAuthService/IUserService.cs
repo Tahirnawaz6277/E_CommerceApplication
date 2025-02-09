@@ -1,7 +1,7 @@
 ﻿using E_Commerce.Application.Common.ResultPattern;
 using E_Commerce.Application.DTOS.AuthDto;
 
-namespace E_Commerce.Application.Interfaces.IAuthService
+namespace E_Commerce.Application.Interfaces.IService.IAuthService
 {
     public interface IUserService
     {

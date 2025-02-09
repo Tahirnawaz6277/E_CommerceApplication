@@ -1,6 +1,8 @@
-﻿namespace E_Commerce.Application.DTOS.AuthDto
+﻿using E_Commerce.Application.Common.Marker;
+
+namespace E_Commerce.Application.DTOS.AuthDto
 {
-    public class LoginResponse
+    public class LoginResponse : IDto
     {
         public string Name { get; set; }
         public string Email { get; set; }

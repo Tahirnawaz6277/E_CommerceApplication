@@ -1,4 +1,4 @@
-﻿using Application.Services.ProductService;
+﻿using E_Commerce.Application.Interfaces.IService;
 
 namespace Infrastructure.Persistance.Services
 {

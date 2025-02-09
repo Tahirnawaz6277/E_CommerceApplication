@@ -1,8 +1,7 @@
 ﻿using E_Commerce.Application.DTOS.AuthDto;
-using E_Commerce.Application.Interfaces.IAuthService;
+using E_Commerce.Application.Interfaces.IService.IAuthService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
 
 namespace E_Commerce.Api.Controllers.AuthController
 {
@@ -37,11 +36,11 @@ namespace E_Commerce.Api.Controllers.AuthController
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
 
-            var key = new byte[32]; // 256-bit key
-            RandomNumberGenerator.Fill(key);
-            var base64Key = Convert.ToBase64String(key); // Use this as your JWT key
+            //var key = new byte[32]; // 256-bit key
+            //RandomNumberGenerator.Fill(key);
+            //var base64Key = Convert.ToBase64String(key); // Use this as your JWT key
 
-            Console.WriteLine(base64Key);
+            //Console.WriteLine(base64Key);
             if (loginRequest is null)
             {
                 return BadRequest("Login request cannot be null");

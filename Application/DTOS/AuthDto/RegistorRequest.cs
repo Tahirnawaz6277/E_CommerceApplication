@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using E_Commerce.Application.Common.Marker;
+using System.ComponentModel.DataAnnotations;
 
 namespace E_Commerce.Application.DTOS.AuthDto
 {
-    public class RegistorRequest
+    public class RegistorRequest : IDto
     {
         [Required(ErrorMessage = "Full Name is required.")]
         public string FullName { get; set; }

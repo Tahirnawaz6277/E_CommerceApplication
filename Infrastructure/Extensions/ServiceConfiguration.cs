@@ -1,7 +1,11 @@
-﻿using Application.Services.ProductService;
-using E_Commerce.Application.Interfaces.IAuthService;
+﻿using E_Commerce.Application.Interfaces;
+using E_Commerce.Application.Interfaces.IService;
+using E_Commerce.Application.Interfaces.IService.IAuthService;
+using E_Commerce.Application.Services;
 using E_Commerce.Application.Services.AuthService;
+using E_Commerce.Domain.Interfaces;
 using E_Commerce.Domain.Interfaces.AuthRepository;
+using E_Commerce.Infrastructure.Persistance.Repository;
 using E_Commerce.Infrastructure.Persistance.Repository.AuthRepositroy;
 using Infrastructure.Persistance.Context;
 using Infrastructure.Persistance.Services;
@@ -28,6 +32,8 @@ namespace E_Commerce.Infrastructure.Extensions
             Services.AddScoped<IUserRepo, UserRepo>();
             Services.AddScoped<IProductService, ProductService>();
             Services.AddTransient<ITokenService, TokenService>();
+            Services.AddScoped<ICategoryService, CategoryService>();
+            Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         }
 
