@@ -11,9 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 
-builder.Services.ConfigureSwaggerAuthentication();
-//var connectionString = builder.Configuration.GetConnectionString("ECommerceConnection");
-//Console.WriteLine($"Connection string: {connectionString}"); // Debug purpose only
 var key = builder.Configuration.GetValue<string>("Jwt:Key");
 //Console.WriteLine($"Connection string: {key}"); // Debug purpose only
 
@@ -22,9 +19,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("ECommerceConnection"));
 });
 
+builder.Services.ConfigureIdentity();
+
+
+
+builder.Services.ConfigureSwaggerAuthentication();
+
 builder.Services.ConfigureJwt(key);
 builder.Services.ConfigureEcommerceServices();
-builder.Services.ConfigureIdentity();
+
 
 var app = builder.Build();
 
@@ -37,6 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
