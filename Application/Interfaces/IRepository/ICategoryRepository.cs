@@ -6,6 +6,8 @@ namespace E_Commerce.Domain.Interfaces
     public interface ICategoryRepository
     {
         Task<Result<Category>> CreateAsync(Category category);
+        Task<Result<Category>> GetByIdAsync(Guid id);
+        Task<Result<List<Category>>> GetAllAsync();
 
     }
 }

@@ -14,23 +14,77 @@ namespace E_Commerce.Application.Services
         {
             _categoryRepository = categoryRepository;
         }
+
         public async Task<Result<CategoryResponse>> CreateAsync(CategoryRequest categoryData)
         {
             var category = new Category
             {
-                //CategoryId = categoryData.Id,
                 Name = categoryData.Name,
                 Description = categoryData.Description
-
             };
 
-            var categoryRepo = await _categoryRepository.CreateAsync(category);
-            var respones = new CategoryResponse
+            var result = await _categoryRepository.CreateAsync(category);
+            if (!result.IsSuccess)
+            {
+                return Result<CategoryResponse>.Fail(result.Message);
+            }
+
+            var response = new CategoryResponse
             {
                 CategoryId = category.CategoryId,
                 Name = category.Name,
+                Description = category.Description
             };
-            return Result<CategoryResponse>.Success(respones);
+
+            return Result<CategoryResponse>.Success(response);
+        }
+
+        public async Task<Result<List<CategoryResponse>>> GetAllAsync()
+        {
+            try
+            {
+                var categories = await _categoryRepository.GetAllAsync();
+                if (!categories.IsSuccess)
+                {
+                    return Result<List<CategoryResponse>>.Fail(categories.Message);
+                }
+                var response = categories.Value.Select(category => new CategoryResponse
+                {
+                    CategoryId = category.CategoryId,
+                    Name = category.Name,
+                    Description = category.Description
+                }).ToList();
+
+                return Result<List<CategoryResponse>>.Success(response, "Categories retrived successfully");
+            }
+            catch (Exception ex)
+            {
+                return Result<List<CategoryResponse>>.Fail($"Error retrieving categories : {ex.Message}");
+            }
+        }
+
+        public async Task<Result<CategoryResponse>> GetByIdAsync(Guid id)
+        {
+            var result = await _categoryRepository.GetByIdAsync(id);
+
+            if (!result.IsSuccess)
+            {
+                return Result<CategoryResponse>.Fail(result.Message);
+            }
+
+            if (result.Value == null)
+            {
+                return Result<CategoryResponse>.Fail("Category not found");
+            }
+
+            var response = new CategoryResponse
+            {
+                CategoryId = result.Value.CategoryId,
+                Name = result.Value.Name,
+                Description = result.Value.Description
+            };
+
+            return Result<CategoryResponse>.Success(response);
         }
     }
 }
