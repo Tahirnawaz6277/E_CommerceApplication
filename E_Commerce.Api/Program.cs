@@ -21,6 +21,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 
 builder.Services.ConfigureIdentity();
 
+builder.Services.AddMvc(options =>
+{
+    options.SuppressAsyncSuffixInActionNames = false;
+});
 
 
 builder.Services.ConfigureSwaggerAuthentication();
