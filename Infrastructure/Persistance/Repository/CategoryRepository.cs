@@ -15,20 +15,6 @@ namespace E_Commerce.Infrastructure.Persistance.Repository
             _dbContext = dbContext;
         }
 
-        //public async Task<Result<Category>> CreateAsync(Category categoryData)
-        //{
-        //    try
-        //    {
-        //     var data =   await _dbContext.Categories.AddAsync(categoryData);
-        //        await _dbContext.SaveChangesAsync();
-        //        return Result<Category>.Success(data.Entity);
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return Result<Category>.Fail(ex.Message);
-        //    }
-        //}
-
         public async Task<Result<Category>> CreateAsync(Category categoryData)
         {
             try
@@ -40,6 +26,25 @@ namespace E_Commerce.Infrastructure.Persistance.Repository
             catch (Exception ex)
             {
                 return Result<Category>.Fail($"Failed to create category: {ex.Message}");
+            }
+        }
+
+        public async Task<Result<Category>> DeleteAsync(Guid id)
+        {
+            try
+            {
+                var result = await _dbContext.Categories.FirstOrDefaultAsync(cat => cat.CategoryId == id);
+                if (result == null)
+                {
+                    return Result<Category>.Fail("Category Not Found ");
+                }
+                _dbContext.Categories.Remove(result);
+                await _dbContext.SaveChangesAsync();
+                return Result<Category>.Success(result, "category successfully deleted");
+            }
+            catch (Exception ex)
+            {
+                return Result<Category>.Fail($"Failed to delete this Category : {ex.Message}");
             }
         }
 
@@ -72,6 +77,30 @@ namespace E_Commerce.Infrastructure.Persistance.Repository
             catch (Exception ex)
             {
                 return Result<Category>.Fail($"Failed to retrieve category: {ex.Message}");
+            }
+        }
+
+        public async Task<Result<Category>> UpdateAsync(Category category, Guid id)
+        {
+            try
+            {
+                var existingCategory = await _dbContext.Categories.FirstOrDefaultAsync(cat => cat.CategoryId == id);
+                if (existingCategory == null)
+                {
+                    return Result<Category>.Fail("Category not Found");
+                }
+
+                existingCategory.Name = category.Name;
+                existingCategory.Description = category.Description;
+                existingCategory.LastModifiedOn = DateTime.Now;
+               
+                var updated = _dbContext.Categories.Update(existingCategory);
+                await _dbContext.SaveChangesAsync();
+                return Result<Category>.Success(existingCategory);
+            }
+            catch (Exception ex)
+            {
+                return Result<Category>.Fail($"Failed to update this Category : {ex.Message}");
             }
         }
     }

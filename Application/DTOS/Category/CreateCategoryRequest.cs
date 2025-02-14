@@ -1,11 +1,10 @@
 ﻿using E_Commerce.Application.Common.Marker;
 using System.ComponentModel.DataAnnotations;
 
-namespace E_Commerce.Application.DTOS
+namespace E_Commerce.Application.DTOS.Category
 {
-    public class CategoryRequest : IDto
+    public class CreateCategoryRequest : IDto
     {
-        //public Guid CategoryId { get; set; }
 
         [Required(ErrorMessage = "Full Name is required.")]
         public string Name { get; set; }
