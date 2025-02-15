@@ -1,5 +1,4 @@
-﻿using Domain.Entities.Catalog.Inventory;
-using E_Commerce.Application.Common.Marker;
+﻿using E_Commerce.Application.Common.Marker;
 
 namespace E_Commerce.Application.DTOS.Category
 {
@@ -8,6 +7,6 @@ namespace E_Commerce.Application.DTOS.Category
         public Guid CategoryId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ICollection<Product> Products { get; set; }
+        //public ICollection<Product> Products { get; set; }
     }
 }
