@@ -21,7 +21,7 @@ namespace E_Commerce.Infrastructure.Configurations.Mappings
             builder.Property(p => p.ImageUrl).IsRequired(false);
 
             builder.Property(p => p.CategoryId).IsRequired();
-            builder.Property(p => p.DiscountId).IsRequired();
+            builder.Property(p => p.DiscountId).IsRequired(false);
             builder.Property(p => p.InventoryId).IsRequired();
 
             // configure relationships
