@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities.Catalog.Inventory;
 using E_Commerce.Application.DTOS.Category;
+using E_Commerce.Application.DTOS.Inventory;
 using E_Commerce.Application.DTOS.Product;
 
 namespace E_Commerce.Infrastructure.Mapper
@@ -25,6 +26,13 @@ namespace E_Commerce.Infrastructure.Mapper
 
             #endregion
 
+            #region -Inventory Mapping-
+
+            _ = CreateMap<Inventory, InventoryDTO>();
+            _ = CreateMap<CreateInventoryRequest, Inventory>();
+            _ = CreateMap<UpdateInventoryRequest, Inventory>();
+
+            #endregion
 
 
         }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities.Catalog.Inventory;
 using E_Commerce.Application.Common.ResultPattern;
+using E_Commerce.Application.DTOS.Inventory;
 using E_Commerce.Application.DTOS.Product;
 using E_Commerce.Application.Interfaces.IRepository.IUnitOfWork;
 using E_Commerce.Application.Interfaces.IService;
@@ -42,9 +43,36 @@ namespace Infrastructure.Persistance.Services
             throw new NotImplementedException();
         }
 
-        public Task<Result<List<ProductDTO>>> GetAllAsync()
+        public async Task<Result<List<ProductDTO>>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var products = await _unitOfWork.ProductRepository.GetAllAsync();
+                var productResponse = products.Value.Select(product => new ProductDTO
+                {
+                    ProductId = product.ProductId,
+                    Name = product.Name,
+                    ImageUrl = product.ImageUrl,
+                    Description = product.Description,
+                    Price = product.Price,
+                    DiscountId = product.DiscountId,
+                    CategoryId = product.CategoryId,
+                    //InventoryId = product.InventoryId,
+                    Inventory = product.Inventory != null ? new InventoryDTO
+                    {
+                        InventoryId = product.Inventory.InventoryId,
+                        stockQuantity = product.Inventory.StockQuantity
+                    }
+                    : null,
+                    Discount = product.Discount
+
+                }).ToList();
+                return Result<List<ProductDTO>>.Success(productResponse);
+            }
+            catch(Exception ex)
+            {
+                return Result<List<ProductDTO>>.Fail($"Failed retriving products : {ex.Message}");
+            }
         }
 
         public Task<Result<ProductDTO>> GetByIdAsync(Guid id)
